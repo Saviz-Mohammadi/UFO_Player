@@ -50,28 +50,28 @@ Item {
                     clip: true
                     spacing: 10
 
-                    // UFO_SideBarButton {
-                    //     id: ufo_SidBarButton_1
+                    UFO_SideBarButton {
+                        id: ufo_SidBarButton_1
 
-                    //     Layout.fillWidth: true
-                    //     Layout.preferredHeight: 40
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
 
-                    //     Layout.leftMargin: 15
-                    //     Layout.rightMargin: 15
+                        Layout.leftMargin: 15
+                        Layout.rightMargin: 15
 
-                    //     ButtonGroup.group: buttonGroup_1
+                        ButtonGroup.group: buttonGroup_1
 
-                    //     checkable: true
-                    //     autoExclusive: true
-                    //     checked: false
+                        checkable: true
+                        autoExclusive: true
+                        checked: false
 
-                    //     text: qsTr("New page")
-                    //     svg: "./../../icons/Google icons/<icon-name>.svg"
+                        text: qsTr("New page")
+                        svg: "./../../icons/Google icons/movie.svg"
 
-                    //     onClicked: {
-                    //         root.tabChanged("Page name")
-                    //     }
-                    // }
+                        onClicked: {
+                            root.tabChanged("VideoLibrary page")
+                        }
+                    }
 
                     // Add more tabs here...
                 }

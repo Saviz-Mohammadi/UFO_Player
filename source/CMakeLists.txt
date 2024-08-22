@@ -133,6 +133,8 @@ set(RESOURCE_FILES
     # ICONS
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/help.svg"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/settings.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/movie.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/music_note.svg"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Application icons/ufo.png"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Application icons/ufo.ico"
 
@@ -168,6 +170,9 @@ set(RESOURCE_FILES
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_TextField.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_Button.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_custom/UFO_RoundProgressBar.qml"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_custom/UFO_VideoElement.qml"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_Player.qml"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_VideoLibrary.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_About.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_Settings.qml")
 
@@ -330,7 +335,8 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/internal_libraries")
 target_link_libraries(${EXECUTABLE_NAME}
 
     PRIVATE
-    "Lib_AppTheme")
+    "Lib_AppTheme"
+    "Lib_LibraryManager")
 
 # [[ ----------------------------------------------------------------------- ]]
 # [[ ----------------------------------------------------------------------- ]]

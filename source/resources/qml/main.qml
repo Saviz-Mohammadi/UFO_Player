@@ -139,11 +139,26 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            UFO_VideoLibrary {
+                id: ufo_VideoLibrary
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
             UFO_Settings {
                 id: ufo_Settings
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
+                Connections {
+                    target: ufo_VideoLibrary
+
+                    function onSelected(filePath) {
+                        console.log(filePath)
+                    }
+                }
             }
 
             UFO_About {
@@ -159,6 +174,9 @@ ApplicationWindow {
                 function onTabChanged(pageName) {
                     switch (pageName) {
 
+                    case "VideoLibrary page":
+                        stackLayout_1.currentIndex = ufo_VideoLibrary.StackLayout.index
+                        break
                     case "Settings page":
                         stackLayout_1.currentIndex = ufo_Settings.StackLayout.index
                         break
