@@ -8,6 +8,7 @@
 #include <QIcon>
 #include "app_theme.hpp"
 #include "library_manager.hpp"
+#include "media_player.hpp"
 
 void registerTypes();
 void setupThemeSystem();

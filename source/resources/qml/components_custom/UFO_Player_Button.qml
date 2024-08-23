@@ -12,8 +12,6 @@ Button {
     property int svgWidth: 24
     property int svgHeight: 24
     property int borderRadius: 0
-    property bool displayIcon: true
-    property bool displayText: true
 
     implicitWidth: 120
     implicitHeight: 35
@@ -24,23 +22,16 @@ Button {
     contentItem: RowLayout {
         id: rowLayout_1
 
-        Item {
-            id: item_1
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
         IconImage {
             id: iconImage_1
 
             Layout.preferredWidth: svgWidth
             Layout.preferredHeight: svgHeight
 
-            visible: displayIcon
             source: ""
-            Layout.leftMargin: 10
-            Layout.rightMargin: 5
+            Layout.leftMargin: 0
+            Layout.rightMargin: 0
+            Layout.alignment: Qt.AlignHCenter
 
             verticalAlignment: Image.AlignVCenter
 
@@ -53,39 +44,6 @@ Button {
                     Qt.color(AppTheme.colors["UFO_Button_Icon_Normal"])
                 }
             }
-        }
-
-        Text {
-            id: text_1
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            visible: displayText
-            text: root.text
-            font: root.font
-            elide: Text.ElideRight
-
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignVCenter
-
-            color: {
-                if (root.checked) {
-                    Qt.color(AppTheme.colors["UFO_Button_Text_Checked"])
-                } else if (root.hovered) {
-                    Qt.color(AppTheme.colors["UFO_Button_Text_Hovered"])
-                } else {
-                    Qt.color(AppTheme.colors["UFO_Button_Text_Normal"])
-                }
-            }
-        }
-
-        // This Item is used to create white space;
-        Item {
-            id: item_2
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
         }
     }
 

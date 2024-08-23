@@ -23,7 +23,6 @@ UFO_Page {
         LibraryManager.obtainVideosUnderDirectory(StandardPaths.writableLocation(StandardPaths.MoviesLocation))
     }
 
-    //
     // [[ ---------------------------------------------------------------------- ]]
     // [[ ---------------------------------------------------------------------- ]]
     RowLayout {

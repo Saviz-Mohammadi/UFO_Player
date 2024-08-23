@@ -65,7 +65,30 @@ Item {
                         autoExclusive: true
                         checked: false
 
-                        text: qsTr("New page")
+                        text: qsTr("Player")
+                        svg: "./../../icons/Google icons/smart_display.svg"
+
+                        onClicked: {
+                            root.tabChanged("Player page")
+                        }
+                    }
+
+                    UFO_SideBarButton {
+                        id: ufo_SidBarButton_2
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+
+                        Layout.leftMargin: 15
+                        Layout.rightMargin: 15
+
+                        ButtonGroup.group: buttonGroup_1
+
+                        checkable: true
+                        autoExclusive: true
+                        checked: false
+
+                        text: qsTr("Video Library")
                         svg: "./../../icons/Google icons/movie.svg"
 
                         onClicked: {

@@ -28,6 +28,7 @@ void registerTypes()
 {
     qmlRegisterSingletonType<AppTheme>("AppTheme", 1, 0, "AppTheme", &AppTheme::qmlInstance);
     qmlRegisterSingletonType<LibraryManager>("LibraryManager", 1, 0, "LibraryManager", &LibraryManager::qmlInstance);
+    qmlRegisterSingletonType<MediaPlayer>("MediaPlayer", 1, 0, "MediaPlayer", &MediaPlayer::qmlInstance);
 }
 
 void setupThemeSystem()

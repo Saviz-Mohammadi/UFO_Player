@@ -139,6 +139,13 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            UFO_Player {
+                id: ufo_Player
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
             UFO_VideoLibrary {
                 id: ufo_VideoLibrary
 
@@ -174,6 +181,9 @@ ApplicationWindow {
                 function onTabChanged(pageName) {
                     switch (pageName) {
 
+                    case "Player page":
+                        stackLayout_1.currentIndex = ufo_Player.StackLayout.index
+                        break
                     case "VideoLibrary page":
                         stackLayout_1.currentIndex = ufo_VideoLibrary.StackLayout.index
                         break

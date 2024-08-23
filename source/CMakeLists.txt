@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 # [[ ----------------------------------------------------------------------- ]]
 # [[ ----------------------------------------------------------------------- ]]
 
-project("UFO_QML"
+project("UFO_Player"
 
     VERSION 0.0.1
 
@@ -135,6 +135,14 @@ set(RESOURCE_FILES
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/settings.svg"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/movie.svg"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/music_note.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/smart_display.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/play_arrow.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/pause.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/fast_forward.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/fast_rewind.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/repeat.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/speed.svg"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Google icons/volume_up.svg"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Application icons/ufo.png"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/icons/Application icons/ufo.ico"
 
@@ -169,8 +177,10 @@ set(RESOURCE_FILES
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_ComboBox.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_TextField.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_Button.qml"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_ufo/UFO_Slider.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_custom/UFO_RoundProgressBar.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_custom/UFO_VideoElement.qml"
+    "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/components_custom/UFO_Player_Button.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_Player.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_VideoLibrary.qml"
     "${RESOURCE_BASE_ORIGIN_LOCATION}/qml/pages/UFO_About.qml"
@@ -336,7 +346,8 @@ target_link_libraries(${EXECUTABLE_NAME}
 
     PRIVATE
     "Lib_AppTheme"
-    "Lib_LibraryManager")
+    "Lib_LibraryManager"
+    "Lib_MediaPlayer")
 
 # [[ ----------------------------------------------------------------------- ]]
 # [[ ----------------------------------------------------------------------- ]]
