@@ -1,12 +1,12 @@
 #ifndef MediaPlayer_H
 #define MediaPlayer_H
 
+#include <QObject>
 #include <QFile>
 #include <QFileInfo>
 #include <QDirIterator>
 #include <QUrl>
 #include <QGuiApplication>
-#include <QObject>
 #include <QQmlEngine>
 #include <QMediaPlayer>
 #include <QAudioOutput>
@@ -17,10 +17,12 @@ class MediaPlayer : public QObject
     Q_DISABLE_COPY_MOVE(MediaPlayer) // Needed for Singleton pattern.
 
     // Q_PROPERTY;
+    Q_PROPERTY(QObject* videoSurface READ getVideoSurface WRITE setVideoSurface)
     Q_PROPERTY(QString duration READ getDuration NOTIFY durationChanged) // Maximum position in timeline
     Q_PROPERTY(QString position READ getPosition NOTIFY positionChanged) // Current position in timeline
+    Q_PROPERTY(qreal maxValue READ getMaxValue NOTIFY maxValueChanged) // Same as duration, but for the UFO_Slider to be used
     Q_PROPERTY(qreal currentValue READ getCurrentValue NOTIFY currentValueChanged) // Same as position, but for the UFO_Slider to be used
-    Q_PROPERTY(bool isPlaying READ getIsPosition NOTIFY isPlayingChanged) // If not playing, then it must be paused
+    Q_PROPERTY(bool isPlaying READ getIsPlaying NOTIFY isPlayingChanged) // If not playing, then it must be paused
 
 public:
     enum class Loop
@@ -40,11 +42,13 @@ public:
     // Fields
 private:
     static MediaPlayer *m_Instance;
+    QObject* m_VideoOutput;
     QMediaPlayer* m_MediaPlayer;
     QAudioOutput* m_AudioOutput;
     QString m_duration;
     QString m_position;
     qreal m_currentValue;
+    qreal m_maxValue;
     bool m_isPlaying;
 
     // Signals
@@ -53,6 +57,7 @@ signals:
     void durationChanged();
     void positionChanged();
     void currentValueChanged();
+    void maxValueChanged();
     void isPlayingChanged();
 
 private slots:
@@ -61,13 +66,13 @@ private slots:
 
     // PUBLIC Methods
 public:
-    Q_INVOKABLE void setMediaFile(const QString &filePath);
     // Q_INVOKABLE void stop(); // Not sure if this is needed since most of the time we can just pause and play.
     Q_INVOKABLE void play();
     Q_INVOKABLE void pause();
     Q_INVOKABLE void rewind();
     Q_INVOKABLE void forward();
     Q_INVOKABLE void setLoopCount(const Loop &option);
+    // TODO implement Speed selection here.
 
     // PRIVATE Methods
 private:
@@ -75,14 +80,18 @@ private:
 
     // PUBLIC Getters
 public:
+    QObject* getVideoSurface();
     QVariantList getVideoFilePaths() const;
     QString getDuration() const;
     QString getPosition() const;
+    qreal getMaxValue() const;
     qreal getCurrentValue() const;
     bool getIsPlaying() const;
 
     // PUBLIC Setters
 public:
+    void setVideoSurface(QObject* surface);
+    Q_INVOKABLE void setMediaFile(QUrl filePath);
     Q_INVOKABLE void setVolume(qreal newVolume);
 
     // PRIVATE Setters
@@ -90,6 +99,7 @@ private:
     void setVideoFilePaths(const QVariantList &newList);
     void setDuration(const QString &newDuration);
     void setPosition(const QString &newPosition);
+    void setMaxValue(qreal newValue);
     void setCurrentValue(qreal newValue);
     void setIsPlaying(bool newState);
 };

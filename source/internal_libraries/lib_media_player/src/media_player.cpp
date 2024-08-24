@@ -8,10 +8,12 @@ MediaPlayer* MediaPlayer::m_Instance = nullptr;
 
 MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
     : QObject{parent}
+    , m_VideoOutput(nullptr)
     , m_MediaPlayer(new QMediaPlayer(this))
     , m_AudioOutput(new QAudioOutput(this))
     , m_duration(QString("00:00:00"))
     , m_position(QString("00:00:00"))
+    , m_maxValue(qreal(0)) // TODO potentially set this to max value of qreal
     , m_currentValue(qreal(0))
     , m_isPlaying(false)
 {
@@ -99,6 +101,8 @@ MediaPlayer *MediaPlayer::cppInstance(QObject *parent)
 
 void MediaPlayer::onDurationChanged(qint64 duration)
 {
+    setMaxValue(duration);
+
     QString newDuration = formatIntoTime(duration);
 
     setDuration(newDuration);
@@ -106,7 +110,13 @@ void MediaPlayer::onDurationChanged(qint64 duration)
 
 void MediaPlayer::onPositionChanged(qint64 position)
 {
-    QString newDuration = formatIntoTime(position);
+    // Change value
+    setCurrentValue(position);
+
+    // Change text format
+    QString newPosition = formatIntoTime(position);
+
+    setPosition(newPosition);
 }
 
 // [[------------------------------------------------------------------------]]
@@ -119,13 +129,6 @@ void MediaPlayer::onPositionChanged(qint64 position)
 // PUBLIC Methods
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
-
-void MediaPlayer::setMediaFile(const QString &filePath)
-{
-    m_MediaPlayer->setSource(
-        QUrl::fromLocalFile(filePath)
-    );
-}
 
 // void MediaPlayer::stop()
 // {
@@ -212,6 +215,11 @@ QString MediaPlayer::formatIntoTime(qint64 milliseconds)
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
 
+QObject *MediaPlayer::getVideoSurface()
+{
+    return (m_VideoOutput);
+}
+
 QString MediaPlayer::getDuration() const
 {
     return (m_duration);
@@ -220,6 +228,11 @@ QString MediaPlayer::getDuration() const
 QString MediaPlayer::getPosition() const
 {
     return (m_position);
+}
+
+qreal MediaPlayer::getMaxValue() const
+{
+    return (m_maxValue);
 }
 
 qreal MediaPlayer::getCurrentValue() const
@@ -242,6 +255,16 @@ bool MediaPlayer::getIsPlaying() const
 // PUBLIC Setters
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
+
+void MediaPlayer::setVideoSurface(QObject *surface)
+{
+    m_MediaPlayer->setVideoOutput(surface);
+}
+
+void MediaPlayer::setMediaFile(QUrl filePath)
+{
+    m_MediaPlayer->setSource(filePath);
+}
 
 void MediaPlayer::setVolume(qreal newVolume)
 {
@@ -291,6 +314,17 @@ void MediaPlayer::setPosition(const QString &newPosition)
 
     m_position = newPosition;
     emit positionChanged();
+}
+
+void MediaPlayer::setMaxValue(qreal newValue)
+{
+    if (m_maxValue == newValue)
+    {
+        return;
+    }
+
+    m_maxValue = newValue;
+    emit maxValueChanged();
 }
 
 void MediaPlayer::setCurrentValue(qreal newValue)
