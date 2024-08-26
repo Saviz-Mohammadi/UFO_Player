@@ -60,6 +60,8 @@ ApplicationWindow {
             topMargin: 0
             leftMargin: 0
 
+            // TODO (Saviz): The problem with this is that the checked state of sidebar does not change
+            // Make sure to invoke signal from sidebar dircetly instead.
             UFO_MenuItem {
                 id: ufo_MenuItem_2
 
@@ -158,14 +160,6 @@ ApplicationWindow {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
-                Connections {
-                    target: ufo_VideoLibrary
-
-                    function onSelected(filePath) {
-                        console.log(filePath)
-                    }
-                }
             }
 
             UFO_About {
@@ -196,6 +190,20 @@ ApplicationWindow {
                     default:
                         stackLayout_1.currentIndex = -1
                     }
+                }
+            }
+
+            Connections {
+                target: ufo_VideoLibrary
+
+                function onSelected(filePath) {
+                    console.log(filePath)
+
+                    // TODO (Saviz): This somehow works. I guess the conversion between string and qurl is automatic.
+                    // Still... make sure to change it to pass around qurl instead just to be safe.
+                    ufo_SideBar_1.tabChanged("Player page")
+                    ufo_SideBar_1.btn_Player.checked = true
+                    ufo_Player.onItemSelected(filePath)
                 }
             }
 

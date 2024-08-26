@@ -9,6 +9,8 @@
 #include <QGuiApplication>
 #include <QQmlEngine>
 #include <QMediaPlayer>
+#include <QMediaDevices>
+#include <QAudioDevice>
 #include <QAudioOutput>
 
 class MediaPlayer : public QObject
@@ -22,6 +24,7 @@ class MediaPlayer : public QObject
     Q_PROPERTY(QString position READ getPosition NOTIFY positionChanged) // Current position in timeline
     Q_PROPERTY(qreal maxValue READ getMaxValue NOTIFY maxValueChanged) // Same as duration, but for the UFO_Slider to be used
     Q_PROPERTY(qreal currentValue READ getCurrentValue NOTIFY currentValueChanged) // Same as position, but for the UFO_Slider to be used
+    Q_PROPERTY(qreal volume READ getVolume WRITE setVolume NOTIFY volumeChanged)
     Q_PROPERTY(bool isPlaying READ getIsPlaying NOTIFY isPlayingChanged) // If not playing, then it must be paused
 
 public:
@@ -30,6 +33,8 @@ public:
         Infinite = 0,
         Once = 1
     };
+
+    Q_ENUM(Loop)
 
     // Constructors, Initializers, Destructor
 public:
@@ -49,6 +54,7 @@ private:
     QString m_position;
     qreal m_currentValue;
     qreal m_maxValue;
+    qreal m_Volume;
     bool m_isPlaying;
 
     // Signals
@@ -58,6 +64,7 @@ signals:
     void positionChanged();
     void currentValueChanged();
     void maxValueChanged();
+    void volumeChanged();
     void isPlayingChanged();
 
 private slots:
@@ -72,7 +79,7 @@ public:
     Q_INVOKABLE void rewind();
     Q_INVOKABLE void forward();
     Q_INVOKABLE void setLoopCount(const Loop &option);
-    // TODO implement Speed selection here.
+    Q_INVOKABLE void setPlayBackRate(qreal newRate);
 
     // PRIVATE Methods
 private:
@@ -86,13 +93,14 @@ public:
     QString getPosition() const;
     qreal getMaxValue() const;
     qreal getCurrentValue() const;
+    qreal getVolume() const;
     bool getIsPlaying() const;
 
     // PUBLIC Setters
 public:
     void setVideoSurface(QObject* surface);
+    void setVolume(qreal newVolume);
     Q_INVOKABLE void setMediaFile(QUrl filePath);
-    Q_INVOKABLE void setVolume(qreal newVolume);
 
     // PRIVATE Setters
 private:

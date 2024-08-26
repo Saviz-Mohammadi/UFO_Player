@@ -15,6 +15,7 @@ MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
     , m_position(QString("00:00:00"))
     , m_maxValue(qreal(0)) // TODO potentially set this to max value of qreal
     , m_currentValue(qreal(0))
+    , m_Volume(qreal(0.65))
     , m_isPlaying(false)
 {
     this->setObjectName(name);
@@ -22,6 +23,12 @@ MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
 
 
     m_MediaPlayer->setAudioOutput(m_AudioOutput);
+
+    // TODO (Saviz): Use this list to provide a method for the user to select their audio device.
+    for(const auto& device : QMediaDevices::audioOutputs())
+    {
+        qDebug() << device.description();
+    }
 
 
     connect(
@@ -181,6 +188,11 @@ void MediaPlayer::setLoopCount(const Loop &option)
     );
 }
 
+void MediaPlayer::setPlayBackRate(qreal newRate)
+{
+    m_MediaPlayer->setPlaybackRate(newRate);
+}
+
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
 
@@ -240,6 +252,11 @@ qreal MediaPlayer::getCurrentValue() const
     return (m_currentValue);
 }
 
+qreal MediaPlayer::getVolume() const
+{
+    return (m_Volume);
+}
+
 bool MediaPlayer::getIsPlaying() const
 {
     return (m_isPlaying);
@@ -261,16 +278,17 @@ void MediaPlayer::setVideoSurface(QObject *surface)
     m_MediaPlayer->setVideoOutput(surface);
 }
 
+void MediaPlayer::setVolume(qreal newVolume)
+{
+    m_AudioOutput->setVolume(newVolume);
+}
+
 void MediaPlayer::setMediaFile(QUrl filePath)
 {
     m_MediaPlayer->setSource(filePath);
 }
 
-void MediaPlayer::setVolume(qreal newVolume)
-{
-    // The newVolume must be a value between 1.0 and 0.0
-    m_AudioOutput->setVolume(newVolume);
-}
+
 
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]

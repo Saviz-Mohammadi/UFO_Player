@@ -23,12 +23,19 @@ UFO_Page {
         CustomMediaPlayer.videoSurface = videoOutput
     }
 
+    function onItemSelected(path)
+    {
+        CustomMediaPlayer.pause()
+        CustomMediaPlayer.setMediaFile(path)
+        CustomMediaPlayer.play()
+    }
+
     FileDialog {
         id: fileDialog
 
         title: "Open File"
         fileMode: FileDialog.OpenFile
-        nameFilters: ["Video Files (*.avi *.mp4 *.mov *.mkv *.flv *.wmv)"]
+        nameFilters: ["Video Files (*.avi *.mp4 *.mov *.mkv *.flv *.wmv)", "Audio Files(*.mp3)"]
         currentFolder: StandardPaths.writableLocation(StandardPaths.MoviesLocation) // Don't ask...
 
         onAccepted: {
@@ -85,6 +92,25 @@ UFO_Page {
                         Layout.preferredWidth: 70
                         Layout.preferredHeight: 35
 
+                        svg: "./../../icons/Google icons/repeat.svg"
+                        checkable: true
+                        checked: false
+
+                        onCheckedChanged: {
+                            if(checked)
+                            {
+                                CustomMediaPlayer.setLoopCount(CustomMediaPlayer.Loop.Infinite)
+                                return
+                            }
+
+                            CustomMediaPlayer.setLoopCount(CustomMediaPlayer.Loop.Once)
+                        }
+                    }
+
+                    UFO_Player_Button{
+                        Layout.preferredWidth: 70
+                        Layout.preferredHeight: 35
+
                         svg: "./../../icons/Google icons/fast_rewind.svg"
 
                         onClicked: {
@@ -120,6 +146,41 @@ UFO_Page {
                         }
                     }
 
+                    // TODO (Saviz): Try and replace the model with an Enum.
+                    UFO_ComboBox{
+                        Layout.preferredWidth: 70
+                        Layout.preferredHeight: 35
+
+                        model: ["x 0.5", "x 1.0", "x 1.25", "x 2.0"]
+                        currentIndex: 1
+
+                        onActivated: {
+                            if(currentIndex === 0)
+                            {
+                                CustomMediaPlayer.setPlayBackRate(0.5)
+                                return
+                            }
+
+                            if(currentIndex === 1)
+                            {
+                                CustomMediaPlayer.setPlayBackRate(1.0)
+                                return
+                            }
+
+                            if(currentIndex === 2)
+                            {
+                                CustomMediaPlayer.setPlayBackRate(1.25)
+                                return
+                            }
+
+                            if(currentIndex === 3)
+                            {
+                                CustomMediaPlayer.setPlayBackRate(2.0)
+                                return
+                            }
+                        }
+                    }
+
                     Item {
                         Layout.fillWidth: true
                     }
@@ -146,6 +207,18 @@ UFO_Page {
                         from: 0
                         to: CustomMediaPlayer.maxValue
                         value: CustomMediaPlayer.currentValue
+                    }
+
+                    UFO_Slider {
+                        Layout.preferredWidth: parent.width * 0.15
+
+                        from: 0.0
+                        to: 1.0
+                        value: CustomMediaPlayer.volume
+
+                        onMoved: {
+                            CustomMediaPlayer.volume = value
+                        }
                     }
 
                     Text {

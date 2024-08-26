@@ -10,6 +10,10 @@ Item {
 
     signal tabChanged(string pageName)
 
+    // TODO (Saviz): The best solution, would be to create a function named changeTab(string) that enternally emits the signal and also
+    // changes the checked state of the correct button.
+    readonly property alias btn_Player: ufo_SidBarButton_1
+
     implicitWidth: 200
     implicitHeight: 200
 
