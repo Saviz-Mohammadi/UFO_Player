@@ -1,79 +1,44 @@
-import QtCore
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 import QtMultimedia
-import QtQuick.Dialogs
 
 // Custom QML Files
 import "./../components_ufo"
-import "./../components_custom"
 
 // Custom CPP Registered Types
 import AppTheme 1.0
 import CustomMediaPlayer 1.0
 
-UFO_Page {
+Window {
     id: root
 
-    title: qsTr("Media Player")
-    contentSpacing: 20
+    //signal closed()
+
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
+    modality: Qt.ApplicationModal
+    color: "transparent"
 
     Component.onCompleted: {
-        CustomMediaPlayer.videoSurface = videoOutput
-    }
-
-    function onFullScreenClosed()
-    {
         CustomMediaPlayer.pause()
         CustomMediaPlayer.videoSurface = videoOutput
         CustomMediaPlayer.play()
-    }
-
-    // This function is meant to be used with signals from "Video Library" and "Audio Library".
-    function onItemSelected(url)
-    {
-        CustomMediaPlayer.pause()
-        CustomMediaPlayer.setMediaFile(url)
-        CustomMediaPlayer.play()
-    }
-
-    FileDialog {
-        id: fileDialog
-
-        title: "Open File"
-        fileMode: FileDialog.OpenFile
-        nameFilters: ["Video Files (*.avi *.mp4 *.mov *.mkv *.flv *.wmv)", "Audio Files(*.mp3)"]
-        currentFolder: StandardPaths.writableLocation(StandardPaths.MoviesLocation) // Don't ask...
-
-        onAccepted: {
-            // Handle the selected file path
-            console.log("Selected file path:", fileDialog.selectedFile)
-            CustomMediaPlayer.setMediaFile(fileDialog.selectedFile)
-            CustomMediaPlayer.play()
-        }
-    }
-
-    UFO_Button {
-        text: "Open File"
-
-        Layout.preferredHeight: 35
-        Layout.preferredWidth: 120
-
-        svg: "./../../icons/Google icons/file_open.svg"
-
-        onClicked: {
-            fileDialog.open()
-        }
+        showFullScreen()
     }
 
     Rectangle {
         id: rectangle_Background
 
-        Layout.fillWidth: true
-        Layout.preferredHeight: Math.round(root.height * 0.80) // Apparently, this does not result in biding because it takes this from stackLaytou fill.
+        anchors.fill: parent
 
         color: "black"
+
+        Keys.onPressed: (event)=> {
+            if (event.key === Qt.Key_Escape) {
+                event.accepted = true;  // Prevent other items from handling this event
+                root.close()
+            }
+        }
 
         MouseArea {
             anchors.fill: parent
@@ -100,7 +65,6 @@ UFO_Page {
                     Layout.fillHeight: true
                 }
 
-                // TODO (Saviz): Place this whole section into a Rectangle to make it obvious and better visually. Do the same for FullScreen.
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.preferredHeight: columnLayout_InterfaceContainer.height
@@ -136,6 +100,8 @@ UFO_Page {
                                 checkable: true
                                 checked: false
 
+                                // TODO (Saviz): this is problematic, because when you switch to full screen mode, the state of checked becomes lost because
+                                // you are creating a new element. I think it may be better to create something like isLooping() bool in C++ instead.
                                 onCheckedChanged: {
                                     if(checked)
                                     {
@@ -225,15 +191,10 @@ UFO_Page {
                                 Layout.preferredWidth: 70
                                 Layout.preferredHeight: 35
 
-                                svg: "./../../icons/Google icons/fullscreen.svg"
+                                svg: "./../../icons/Google icons/close_fullscreen.svg"
 
                                 onClicked: {
-                                    var component = Qt.createComponent("./../components_custom/UFO_FullScreen.qml");
-                                    var fullScreen = component.createObject(root);
-
-                                    fullScreen.closing.connect(onFullScreenClosed)
-
-                                    return;
+                                    root.close();
                                 }
                             }
 

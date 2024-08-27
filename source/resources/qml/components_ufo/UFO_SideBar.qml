@@ -69,11 +69,11 @@ Item {
                         autoExclusive: true
                         checked: false
 
-                        text: qsTr("Player")
+                        text: qsTr("Media Player")
                         svg: "./../../icons/Google icons/smart_display.svg"
 
                         onClicked: {
-                            root.tabChanged("Player page")
+                            root.tabChanged("MediaPlayer page")
                         }
                     }
 

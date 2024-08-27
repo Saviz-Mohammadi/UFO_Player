@@ -175,7 +175,7 @@ ApplicationWindow {
                 function onTabChanged(pageName) {
                     switch (pageName) {
 
-                    case "Player page":
+                    case "MediaPlayer page":
                         stackLayout_1.currentIndex = ufo_Player.StackLayout.index
                         break
                     case "VideoLibrary page":
@@ -196,14 +196,14 @@ ApplicationWindow {
             Connections {
                 target: ufo_VideoLibrary
 
-                function onSelected(filePath) {
-                    console.log(filePath)
+                function onSelected(videoUrl) {
+                    console.log(videoUrl)
 
                     // TODO (Saviz): This somehow works. I guess the conversion between string and qurl is automatic.
                     // Still... make sure to change it to pass around qurl instead just to be safe.
-                    ufo_SideBar_1.tabChanged("Player page")
+                    ufo_SideBar_1.tabChanged("MediaPlayer page")
                     ufo_SideBar_1.btn_Player.checked = true
-                    ufo_Player.onItemSelected(filePath)
+                    ufo_Player.onItemSelected(videoUrl)
                 }
             }
 

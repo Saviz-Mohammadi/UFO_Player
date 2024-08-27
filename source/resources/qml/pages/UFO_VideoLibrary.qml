@@ -14,7 +14,7 @@ import LibraryManager 1.0
 UFO_Page {
     id: root
 
-    signal selected(string filePath)
+    signal selected(url videoUrl)
 
     title: qsTr("Video Library")
     contentSpacing: 20
@@ -23,6 +23,7 @@ UFO_Page {
         LibraryManager.obtainVideosUnderDirectory(StandardPaths.writableLocation(StandardPaths.MoviesLocation))
     }
 
+    // Interface
     // [[ ---------------------------------------------------------------------- ]]
     // [[ ---------------------------------------------------------------------- ]]
     RowLayout {
@@ -31,11 +32,11 @@ UFO_Page {
         Layout.fillWidth: true
 
         UFO_Button {
-            text: "Open Folder"
-        }
-
-        UFO_Button {
             text: "Refresh"
+
+            svg: "./../../icons/Google icons/refresh.svg"
+
+            // TODO (Saviz): call "LibraryManager.obtainVideosUnderDirectory()" to refresh.
         }
     }
     // [[ ---------------------------------------------------------------------- ]]
@@ -45,23 +46,27 @@ UFO_Page {
 
 
 
-    // Library
+    // Library view
     // [[ ---------------------------------------------------------------------- ]]
     // [[ ---------------------------------------------------------------------- ]]
     Flow {
         Layout.fillWidth: true
+
+        spacing: 10
 
         Repeater {
             model: LibraryManager.videoFilePaths
 
             delegate: UFO_VideoElement {
 
-                filePath: modelData
-
+                // Binding data to "UFO_VideoElement"
+                videoFileUrl: LibraryManager.urlFromPath(modelData)
+                videoFilePath: modelData
                 videoName: LibraryManager.fileNameFromPath(modelData)
 
-                onSelected: function (path) {
-                    root.selected(path)
+                // Emit signal.
+                onSelected: function (videoUrl) {
+                    root.selected(videoUrl)
                 }
             }
         }
