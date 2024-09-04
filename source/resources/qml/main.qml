@@ -135,6 +135,9 @@ ApplicationWindow {
             Layout.fillHeight: true
         }
 
+        // TODO (Saviz): I think the best way to deal with this, is to have a function in StackLayout that can be connected to signals
+        // and is in charge of changing the page. This is the cleanest architecuter since StackLayout is the actual element that manages the pages
+        // So, it sohuld be responsible for changing them. Others can tell it to change the page by calling its funciton.
         StackLayout {
             id: stackLayout_1
 
