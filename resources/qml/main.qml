@@ -65,13 +65,28 @@ ApplicationWindow {
 
                 leftPadding: 10
                 rightPadding: 10
-                text: qsTr("Demo page")
+                text: qsTr("Media Player page")
 
                 onTriggered: {
-                    stackLayout_1.currentIndex = ufo_Demo.StackLayout.index
+                    stackLayout_1.currentIndex = ufo_MediaPlayer.StackLayout.index
 
                     // Change checked state of side bar.
-                    ufo_SideBar_1.checkTabButton("Demo")
+                    ufo_SideBar_1.checkTabButton("MediaPlayer")
+                }
+            }
+
+            UFO_MenuItem {
+                id: ufo_MenuItem_5
+
+                leftPadding: 10
+                rightPadding: 10
+                text: qsTr("Video Library page")
+
+                onTriggered: {
+                    stackLayout_1.currentIndex = ufo_VideoLibrary.StackLayout.index
+
+                    // Change checked state of side bar.
+                    ufo_SideBar_1.checkTabButton("VideoLibrary")
                 }
             }
 
@@ -124,10 +139,13 @@ ApplicationWindow {
 
                 leftPadding: 10
                 rightPadding: 10
-                text: qsTr("About UFO_QML")
+                text: qsTr("About UFO_Player")
 
                 onTriggered: {
                     stackLayout_1.currentIndex = ufo_About.StackLayout.index
+
+                    // Change checked state of side bar.
+                    ufo_SideBar_1.checkTabButton("About")
                 }
             }
         }
@@ -152,7 +170,7 @@ ApplicationWindow {
             // Still... make sure to change it to pass around qurl instead just to be safe.
             ufo_SideBar_1.tabChanged("MediaPlayer page")
             ufo_SideBar_1.checkTabButton("MediaPlayer")
-            ufo_Player.onItemSelected(videoUrl)
+            ufo_MediaPlayer.onItemSelected(videoUrl)
         }
     }
 
@@ -175,7 +193,7 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             UFO_Player {
-                id: ufo_Player
+                id: ufo_MediaPlayer
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -209,7 +227,7 @@ ApplicationWindow {
                     switch (pageName) {
 
                     case "MediaPlayer page":
-                        stackLayout_1.currentIndex = ufo_Player.StackLayout.index
+                        stackLayout_1.currentIndex = ufo_MediaPlayer.StackLayout.index
                         break
                     case "VideoLibrary page":
                         stackLayout_1.currentIndex = ufo_VideoLibrary.StackLayout.index
