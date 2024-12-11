@@ -22,7 +22,7 @@ Slider {
         Rectangle {
             width: control.visualPosition * parent.width
             height: parent.height
-            color: "#21be2b"
+            color: Qt.color(AppTheme.colors["UFO_Slider_Background_Filled"])
             radius: 2
         }
     }

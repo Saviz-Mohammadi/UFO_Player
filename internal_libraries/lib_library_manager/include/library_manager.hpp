@@ -17,6 +17,7 @@ class LibraryManager : public QObject
 
     // Q_PROPERTY
     Q_PROPERTY(QVariantList videoFilePaths READ getVideoFilePaths NOTIFY videoFilePathsChanged)
+    Q_PROPERTY(QVariantList audioFilePaths READ getAudioFilePaths NOTIFY audioFilePathsChanged)
 
     // Constructors, Initializers, Destructor
 public:
@@ -30,24 +31,29 @@ public:
 private:
     static LibraryManager *m_Instance;
     QVariantList m_VideoFilePaths;
+    QVariantList m_AudioFilePaths;
 
     // Signals
 signals:
     void videoFilePathsChanged();
+    void audioFilePathsChanged();
 
     // PUBLIC Methods
 public:
     Q_INVOKABLE void obtainVideosUnderDirectory(const QUrl &directoryURL);
+    Q_INVOKABLE void obtainAudiosUnderDirectory(const QUrl &directoryURL);
     Q_INVOKABLE QString fileNameFromPath(const QString &filePath);
     Q_INVOKABLE QUrl urlFromPath(const QString &filePath);
 
     // PUBLIC Getters
 public:
     QVariantList getVideoFilePaths() const;
+    QVariantList getAudioFilePaths() const;
 
     // PRIVATE Setters
 private:
     void setVideoFilePaths(const QVariantList &newList);
+    void setAudioFilePaths(const QVariantList &newList);
 };
 
 #endif // LIBRARYMANAGER_H

@@ -91,6 +91,21 @@ ApplicationWindow {
             }
 
             UFO_MenuItem {
+                id: ufo_MenuItem_6
+
+                leftPadding: 10
+                rightPadding: 10
+                text: qsTr("Audio Library page")
+
+                onTriggered: {
+                    stackLayout_1.currentIndex = ufo_AudioLibrary.StackLayout.index
+
+                    // Change checked state of side bar.
+                    ufo_SideBar_1.checkTabButton("AudioLibrary")
+                }
+            }
+
+            UFO_MenuItem {
                 id: ufo_MenuItem_2
 
                 leftPadding: 10
@@ -135,7 +150,7 @@ ApplicationWindow {
             leftMargin: 0
 
             UFO_MenuItem {
-                id: ufo_MenuItem_6
+                id: ufo_MenuItem_9
 
                 leftPadding: 10
                 rightPadding: 10
@@ -174,6 +189,20 @@ ApplicationWindow {
         }
     }
 
+    Connections {
+        target: ufo_AudioLibrary
+
+        function onSelected(audioUrl) {
+            console.log(audioUrl)
+
+            // TODO (Saviz): This somehow works. I guess the conversion between string and qurl is automatic.
+            // Still... make sure to change it to pass around qurl instead just to be safe.
+            ufo_SideBar_1.tabChanged("MediaPlayer page")
+            ufo_SideBar_1.checkTabButton("MediaPlayer")
+            ufo_MediaPlayer.onItemSelected(audioUrl)
+        }
+    }
+
     UFO_SplitView {
         id: splitView_1
 
@@ -206,6 +235,13 @@ ApplicationWindow {
                 Layout.fillHeight: true
             }
 
+            UFO_AudioLibrary {
+                id: ufo_AudioLibrary
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
             UFO_Settings {
                 id: ufo_Settings
 
@@ -231,6 +267,9 @@ ApplicationWindow {
                         break
                     case "VideoLibrary page":
                         stackLayout_1.currentIndex = ufo_VideoLibrary.StackLayout.index
+                        break
+                    case "AudioLibrary page":
+                        stackLayout_1.currentIndex = ufo_AudioLibrary.StackLayout.index
                         break
                     case "Settings page":
                         stackLayout_1.currentIndex = ufo_Settings.StackLayout.index

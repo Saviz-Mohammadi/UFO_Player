@@ -20,6 +20,9 @@ Item {
             case "VideoLibrary":
                 ufo_SidBarButton_2.checked = true
                 break
+            case "AudioLibrary":
+                ufo_SidBarButton_5.checked = true
+                break
             case "Settings":
                 ufo_SidBarButton_3.checked = true
                 break
@@ -114,6 +117,29 @@ Item {
 
                         onClicked: {
                             root.tabChanged("VideoLibrary page")
+                        }
+                    }
+
+                    UFO_SideBarButton {
+                        id: ufo_SidBarButton_5
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+
+                        Layout.leftMargin: 15
+                        Layout.rightMargin: 15
+
+                        ButtonGroup.group: buttonGroup_1
+
+                        checkable: true
+                        autoExclusive: true
+                        checked: false
+
+                        text: qsTr("Audio Library")
+                        svg: "./../../icons/Google icons/music_note.svg"
+
+                        onClicked: {
+                            root.tabChanged("AudioLibrary page")
                         }
                     }
 

@@ -9,6 +9,7 @@ LibraryManager* LibraryManager::m_Instance = nullptr;
 LibraryManager::LibraryManager(QObject *parent, const QString& name)
     : QObject{parent}
     , m_VideoFilePaths(QVariantList{})
+    , m_AudioFilePaths(QVariantList{})
 {
     this->setObjectName(name);
 
@@ -104,6 +105,36 @@ void LibraryManager::obtainVideosUnderDirectory(const QUrl &directoryURL)
     setVideoFilePaths(result);
 }
 
+// TODO This method can potentially be very expensive. Maybe it is a good idea to call this in a seperate thread.
+void LibraryManager::obtainAudiosUnderDirectory(const QUrl &directoryURL)
+{
+    QStringList audioExtensions;
+
+    audioExtensions << "*.mp3"
+                    << "*.wav"
+                    << "*.aiff"
+                    << "*.aif"
+                    << "*.acc"
+                    << "*.ogg";
+
+
+    QDirIterator iterator(
+        directoryURL.toLocalFile(),                // Start location
+        audioExtensions,              // File name pattern
+        QDir::Files,                  // Filter for files
+        QDirIterator::Subdirectories  // Perform recursively
+        );
+
+    QVariantList result;
+
+    while (iterator.hasNext())
+    {
+        result.append(iterator.next());
+    }
+
+    setAudioFilePaths(result);
+}
+
 QString LibraryManager::fileNameFromPath(const QString &filePath)
 {
     return QFileInfo(filePath).fileName();
@@ -130,6 +161,11 @@ QVariantList LibraryManager::getVideoFilePaths() const
     return (m_VideoFilePaths);
 }
 
+QVariantList LibraryManager::getAudioFilePaths() const
+{
+    return (m_AudioFilePaths);
+}
+
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
 
@@ -150,6 +186,17 @@ void LibraryManager::setVideoFilePaths(const QVariantList &newList)
 
     m_VideoFilePaths = newList;
     emit videoFilePathsChanged();
+}
+
+void LibraryManager::setAudioFilePaths(const QVariantList &newList)
+{
+    if (m_AudioFilePaths == newList)
+    {
+        return;
+    }
+
+    m_AudioFilePaths = newList;
+    emit audioFilePathsChanged();
 }
 
 // [[------------------------------------------------------------------------]]
