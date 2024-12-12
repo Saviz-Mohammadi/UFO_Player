@@ -21,11 +21,11 @@ class LibraryManager : public QObject
 
     // Constructors, Initializers, Destructor
 public:
-    explicit LibraryManager(QObject *parent = nullptr, const QString& name = "No name");
+    explicit LibraryManager(QObject *parent = Q_NULLPTR, const QString& name = "No name");
     ~LibraryManager();
 
     static LibraryManager *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
-    static LibraryManager *cppInstance(QObject *parent = nullptr);
+    static LibraryManager *cppInstance(QObject *parent = Q_NULLPTR);
 
     // Fields
 private:

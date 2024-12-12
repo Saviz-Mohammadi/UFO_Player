@@ -1,6 +1,6 @@
 #include "media_player.hpp"
 
-MediaPlayer* MediaPlayer::m_Instance = nullptr;
+MediaPlayer* MediaPlayer::m_Instance = Q_NULLPTR;
 
 // Constructors, Initializers, Destructor
 // [[------------------------------------------------------------------------]]
@@ -8,7 +8,7 @@ MediaPlayer* MediaPlayer::m_Instance = nullptr;
 
 MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
     : QObject{parent}
-    , m_VideoOutput(nullptr)
+    , m_VideoOutput(Q_NULLPTR)
     , m_MediaPlayer(new QMediaPlayer(this))
     , m_AudioOutput(new QAudioOutput(this))
     , m_duration(QString("00:00:00"))

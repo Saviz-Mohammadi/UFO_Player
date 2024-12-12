@@ -1,6 +1,6 @@
 #include "library_manager.hpp"
 
-LibraryManager* LibraryManager::m_Instance = nullptr;
+LibraryManager* LibraryManager::m_Instance = Q_NULLPTR;
 
 // Constructors, Initializers, Destructor
 // [[------------------------------------------------------------------------]]

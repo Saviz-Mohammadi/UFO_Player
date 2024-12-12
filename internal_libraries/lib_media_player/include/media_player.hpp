@@ -38,11 +38,11 @@ public:
 
     // Constructors, Initializers, Destructor
 public:
-    explicit MediaPlayer(QObject *parent = nullptr, const QString& name = "No name");
+    explicit MediaPlayer(QObject *parent = Q_NULLPTR, const QString& name = "No name");
     ~MediaPlayer();
 
     static MediaPlayer *qmlInstance(QQmlEngine *engine, QJSEngine *scriptEngine);
-    static MediaPlayer *cppInstance(QObject *parent = nullptr);
+    static MediaPlayer *cppInstance(QObject *parent = Q_NULLPTR);
 
     // Fields
 private:
