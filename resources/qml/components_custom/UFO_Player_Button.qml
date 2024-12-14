@@ -8,7 +8,7 @@ import AppTheme 1.0
 Button {
     id: root
 
-    property alias svg: iconImage_1.source
+    property alias svg: iconImage.source
     property int svgWidth: 24
     property int svgHeight: 24
     property int borderRadius: 0
@@ -20,27 +20,30 @@ Button {
     hoverEnabled: enabled ? true : false
 
     contentItem: RowLayout {
-        id: rowLayout_1
 
         IconImage {
-            id: iconImage_1
+            id: iconImage
 
             Layout.preferredWidth: svgWidth
             Layout.preferredHeight: svgHeight
 
-            source: ""
             Layout.leftMargin: 0
             Layout.rightMargin: 0
-            Layout.alignment: Qt.AlignHCenter
 
+            source: ""
+            Layout.alignment: Qt.AlignHCenter
             verticalAlignment: Image.AlignVCenter
 
             color: {
                 if (root.checked) {
                     Qt.color(AppTheme.colors["UFO_Button_Icon_Checked"])
-                } else if (root.hovered) {
+                }
+
+                else if (root.hovered) {
                     Qt.color(AppTheme.colors["UFO_Button_Icon_Hovered"])
-                } else {
+                }
+
+                else {
                     Qt.color(AppTheme.colors["UFO_Button_Icon_Normal"])
                 }
             }
@@ -48,16 +51,18 @@ Button {
     }
 
     background: Rectangle {
-        id: rectangle_1
-
         radius: borderRadius
 
         color: {
             if (root.checked) {
                 Qt.color(AppTheme.colors["UFO_Button_Background_Checked"])
-            } else if (root.hovered) {
+            }
+
+            else if (root.hovered) {
                 Qt.color(AppTheme.colors["UFO_Button_Background_Hovered"])
-            } else {
+            }
+
+            else {
                 Qt.color(AppTheme.colors["UFO_Button_Background_Normal"])
             }
         }

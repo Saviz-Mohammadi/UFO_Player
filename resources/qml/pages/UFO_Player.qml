@@ -30,7 +30,6 @@ UFO_Page {
         CustomMediaPlayer.play()
     }
 
-    // This function is meant to be used with signals from "Video Library" and "Audio Library".
     function onItemSelected(url)
     {
         CustomMediaPlayer.pause()
@@ -47,19 +46,18 @@ UFO_Page {
         currentFolder: StandardPaths.writableLocation(StandardPaths.MoviesLocation) // Don't ask...
 
         onAccepted: {
-            // Handle the selected file path
             console.log("Selected file path:", fileDialog.selectedFile)
+
             CustomMediaPlayer.setMediaFile(fileDialog.selectedFile)
             CustomMediaPlayer.play()
         }
     }
 
     UFO_Button {
-        text: "Open File"
-
-        Layout.preferredHeight: 35
         Layout.preferredWidth: 120
+        Layout.preferredHeight: 35
 
+        text: "Open File"
         svg: "./../../icons/Google icons/file_open.svg"
 
         onClicked: {
@@ -68,8 +66,6 @@ UFO_Page {
     }
 
     Rectangle {
-        id: rectangle_Background
-
         Layout.fillWidth: true
         Layout.preferredHeight: Math.round(root.height * 0.80) // Apparently, this does not result in biding because it takes this from stackLaytou fill.
 
@@ -91,8 +87,8 @@ UFO_Page {
             anchors.fill: parent
 
             ColumnLayout {
-
                 anchors.fill: parent
+
                 anchors.margins: 10
 
                 Item {
@@ -100,7 +96,6 @@ UFO_Page {
                     Layout.fillHeight: true
                 }
 
-                // TODO (Saviz): Place this whole section into a Rectangle to make it obvious and better visually. Do the same for FullScreen.
                 MouseArea {
                     Layout.fillWidth: true
                     Layout.preferredHeight: columnLayout_InterfaceContainer.height
@@ -119,9 +114,7 @@ UFO_Page {
 
                         visible: false
 
-                        // Buttons
                         RowLayout {
-
                             Layout.fillWidth: true
 
                             Item {
@@ -186,7 +179,6 @@ UFO_Page {
                                 }
                             }
 
-                            // TODO (Saviz): Try and replace the model with an Enum.
                             UFO_ComboBox{
                                 Layout.preferredWidth: 80
                                 Layout.preferredHeight: 35
@@ -242,9 +234,7 @@ UFO_Page {
                             }
                         }
 
-                        // Slider
                         RowLayout {
-
                             Layout.fillWidth: true
 
                             Item {
@@ -253,7 +243,6 @@ UFO_Page {
 
                             Text {
                                 text: CustomMediaPlayer.position
-
                                 color: "white"
                             }
 
@@ -263,11 +252,14 @@ UFO_Page {
                                 from: 0
                                 to: CustomMediaPlayer.maxValue
                                 value: CustomMediaPlayer.currentValue
+
+                                onMoved: {
+                                    CustomMediaPlayer.setPosition(value)
+                                }
                             }
 
                             Text {
                                 text: CustomMediaPlayer.duration
-
                                 color: "white"
                             }
 

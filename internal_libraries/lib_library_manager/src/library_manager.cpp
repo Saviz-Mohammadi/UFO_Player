@@ -1,5 +1,10 @@
 #include "library_manager.hpp"
 
+#ifdef QT_DEBUG
+    #include "logger.hpp"
+#endif
+
+
 LibraryManager* LibraryManager::m_Instance = Q_NULLPTR;
 
 // Constructors, Initializers, Destructor
@@ -14,29 +19,19 @@ LibraryManager::LibraryManager(QObject *parent, const QString& name)
     this->setObjectName(name);
 
 
-
-// Debugging
 #ifdef QT_DEBUG
-    qDebug() << "\n**************************************************\n"
-             << "* Object Name :" << this->objectName()  << "\n"
-             << "* Function    :" << __FUNCTION__        << "\n"
-             << "* Message     : Call to Constructor"
-             << "\n**************************************************\n\n";
+    QString message("Call to Constructor");
+
+    logger::log(logger::LOG_LEVEL::DEBUG, this->objectName(), Q_FUNC_INFO, message);
 #endif
 }
 
 LibraryManager::~LibraryManager()
 {
-
-
-
-// Debugging
 #ifdef QT_DEBUG
-    qDebug() << "\n**************************************************\n"
-             << "* Object Name :" << this->objectName()  << "\n"
-             << "* Function    :" << __FUNCTION__        << "\n"
-             << "* Message     : Call to Destructor"
-             << "\n**************************************************\n\n";
+    QString message("Call to Destructor");
+
+    logger::log(logger::LOG_LEVEL::DEBUG, this->objectName(), Q_FUNC_INFO, message);
 #endif
 }
 
@@ -76,7 +71,7 @@ LibraryManager *LibraryManager::cppInstance(QObject *parent)
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
 
-// TODO This method can potentially be very expensive. Maybe it is a good idea to call this in a seperate thread.
+// TODO (SAVIZ): This method can potentially be very expensive. Maybe it is a good idea to call this in a seperate thread.
 void LibraryManager::obtainVideosUnderDirectory(const QUrl &directoryURL)
 {
     QStringList videoExtensions;
@@ -89,7 +84,7 @@ void LibraryManager::obtainVideosUnderDirectory(const QUrl &directoryURL)
 
 
     QDirIterator iterator(
-        directoryURL.toLocalFile(),                // Start location
+        directoryURL.toLocalFile(),   // Start location
         videoExtensions,              // File name pattern
         QDir::Files,                  // Filter for files
         QDirIterator::Subdirectories  // Perform recursively
@@ -105,7 +100,7 @@ void LibraryManager::obtainVideosUnderDirectory(const QUrl &directoryURL)
     setVideoFilePaths(result);
 }
 
-// TODO This method can potentially be very expensive. Maybe it is a good idea to call this in a seperate thread.
+// TODO (SAVIZ): This method can potentially be very expensive. Maybe it is a good idea to call this in a seperate thread.
 void LibraryManager::obtainAudiosUnderDirectory(const QUrl &directoryURL)
 {
     QStringList audioExtensions;
@@ -119,7 +114,7 @@ void LibraryManager::obtainAudiosUnderDirectory(const QUrl &directoryURL)
 
 
     QDirIterator iterator(
-        directoryURL.toLocalFile(),                // Start location
+        directoryURL.toLocalFile(),   // Start location
         audioExtensions,              // File name pattern
         QDir::Files,                  // Filter for files
         QDirIterator::Subdirectories  // Perform recursively

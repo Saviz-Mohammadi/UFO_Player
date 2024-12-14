@@ -23,9 +23,6 @@ UFO_Page {
         LibraryManager.obtainVideosUnderDirectory(StandardPaths.writableLocation(StandardPaths.MoviesLocation))
     }
 
-    // Interface
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
     RowLayout {
         id: ufo_GroupBox_1
 
@@ -36,19 +33,12 @@ UFO_Page {
 
             svg: "./../../icons/Google icons/refresh.svg"
 
-            // TODO (Saviz): call "LibraryManager.obtainVideosUnderDirectory()" to refresh.
+            // TODO (Saviz): Call "LibraryManager.obtainVideosUnderDirectory()" to refresh.
         }
     }
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
 
 
 
-
-
-    // Library view
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
     Flow {
         Layout.fillWidth: true
 
@@ -58,19 +48,14 @@ UFO_Page {
             model: LibraryManager.videoFilePaths
 
             delegate: UFO_VideoElement {
-
-                // Binding data to "UFO_VideoElement"
                 videoFileUrl: LibraryManager.urlFromPath(modelData)
                 videoFilePath: modelData
                 videoName: LibraryManager.fileNameFromPath(modelData)
 
-                // Emit signal.
                 onSelected: function (videoUrl) {
                     root.selected(videoUrl)
                 }
             }
         }
     }
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
 }

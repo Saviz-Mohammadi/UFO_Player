@@ -14,21 +14,14 @@ UFO_Page {
     title: qsTr("About Application")
     contentSpacing: 20
 
-    // Application Name and Version
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
     UFO_GroupBox {
-        id: ufo_GroupBox_1
-
         Layout.fillWidth: true
+        // NOTE (SAVIZ): No point using "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
 
-        // No point setting the "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
         title: qsTr("Overview")
         contentSpacing: 10
 
         Text {
-            id: text_1
-
             Layout.fillWidth: true
 
             Layout.topMargin: 20
@@ -44,30 +37,20 @@ UFO_Page {
             elide: Text.ElideRight
         }
     }
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
 
 
 
-
-
-    // Software License
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
     UFO_GroupBox {
-        id: ufo_GroupBox_2
-
         Layout.fillWidth: true
+        // NOTE (SAVIZ): No point using "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
 
-        // No point setting the "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
-        title: qsTr("Software License")
         titleLeftMargin: 15
         titleRightMargin: 15
+        title: qsTr("Software License")
+
         contentSpacing: 7
 
         Text {
-            id: text_2
-
             Layout.fillWidth: true
 
             Layout.topMargin: 20
@@ -87,35 +70,24 @@ UFO_Page {
             elide: Text.ElideRight
         }
     }
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
 
 
 
-
-
-    // Contribution
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
     UFO_GroupBox {
-        id: ufo_GroupBox_3
-
         Layout.fillWidth: true
+        // NOTE (SAVIZ): No point using "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
 
-        // No point setting the "Layout.fillHeight" as "UFO_Page" ignores height to enable vertical scrolling.
         title: qsTr("Contributing")
         contentSpacing: 10
 
         Text {
-            id: text_3
-
             Layout.fillWidth: true
 
             Layout.topMargin: 20
             Layout.leftMargin: 15
             Layout.rightMargin: 15
 
-            text: qsTr("We welcome contributions to the UFO_Player application! Please visit our GitHub page by clicking the button below for more information.")
+            text: qsTr("We welcome contributions to the UFO_Player template! Please visit our GitHub page by clicking the button below for more information.")
 
             color: Qt.color(AppTheme.colors["UFO_GroupBox_Content_Text"])
             wrapMode: Text.WordWrap
@@ -137,6 +109,4 @@ UFO_Page {
             }
         }
     }
-    // [[ ---------------------------------------------------------------------- ]]
-    // [[ ---------------------------------------------------------------------- ]]
 }

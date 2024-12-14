@@ -10,8 +10,6 @@ Rectangle {
 
     signal selected(url audioUrl)
 
-    // In Qt, it is usually better to pass a url instead of string as path.
-    // Don't ask why, that is just how Qt perfers to do it.
     property url audioFileUrl: ""
     property string audioFilePath: ""
     property string audioName: ""
@@ -25,48 +23,36 @@ Rectangle {
     border.color: "cornflowerblue"
 
     ColumnLayout {
-        id: columnLayout_1
-
         anchors.fill: parent
 
         z: 1
 
-        // Icon
         IconImage {
-            id: iconImage_1
-
-            source: "./../../icons/Google icons/music_note.svg"
-
-            color: Qt.color(AppTheme.colors["UFO_MediaElement_Icon"])
-
             Layout.preferredWidth: 32
             Layout.preferredHeight: 32
 
+            source: "./../../icons/Google icons/music_note.svg"
+            color: Qt.color(AppTheme.colors["UFO_MediaElement_Icon"])
             Layout.alignment: Qt.AlignHCenter
         }
 
         Text {
-            id: text_1
-
-            text: root.audioName
             Layout.fillWidth: true
 
-            color: Qt.color(AppTheme.colors["UFO_MediaElement_Text"])
-
             Layout.margins: 10
+
+            text: root.audioName
+            color: Qt.color(AppTheme.colors["UFO_MediaElement_Text"])
             horizontalAlignment: Text.AlignHCenter
             elide: Text.ElideRight
         }
     }
 
     MouseArea {
-        id: mouseArea_1
-
         anchors.fill: parent
 
         z: 2
 
-        // Emit signal.
         onClicked: {
             root.selected(root.audioFileUrl)
         }

@@ -1,5 +1,5 @@
-#ifndef MediaPlayer_H
-#define MediaPlayer_H
+#ifndef MEDIAPLAYER_H
+#define MEDIAPLAYER_H
 
 #include <QObject>
 #include <QFile>
@@ -18,7 +18,7 @@ class MediaPlayer : public QObject
     Q_OBJECT
     Q_DISABLE_COPY_MOVE(MediaPlayer) // Needed for Singleton pattern.
 
-    // Q_PROPERTY;
+    // Q_PROPERTY
     Q_PROPERTY(QObject* videoSurface READ getVideoSurface WRITE setVideoSurface)
     Q_PROPERTY(QString duration READ getDuration NOTIFY durationChanged) // Maximum position in timeline
     Q_PROPERTY(QString position READ getPosition NOTIFY positionChanged) // Current position in timeline
@@ -73,13 +73,13 @@ private slots:
 
     // PUBLIC Methods
 public:
-    // Q_INVOKABLE void stop(); // Not sure if this is needed since most of the time we can just pause and play.
     Q_INVOKABLE void play();
     Q_INVOKABLE void pause();
     Q_INVOKABLE void rewind();
     Q_INVOKABLE void forward();
     Q_INVOKABLE void setLoopCount(const Loop &option);
     Q_INVOKABLE void setPlayBackRate(qreal newRate);
+    Q_INVOKABLE void setPosition(qreal newPosition);
 
     // PRIVATE Methods
 private:
@@ -104,7 +104,6 @@ public:
 
     // PRIVATE Setters
 private:
-    void setVideoFilePaths(const QVariantList &newList);
     void setDuration(const QString &newDuration);
     void setPosition(const QString &newPosition);
     void setMaxValue(qreal newValue);
@@ -112,4 +111,4 @@ private:
     void setIsPlaying(bool newState);
 };
 
-#endif // MediaPlayer_H
+#endif // MEDIAPLAYER_H

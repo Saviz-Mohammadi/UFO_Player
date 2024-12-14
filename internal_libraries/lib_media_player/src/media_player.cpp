@@ -1,5 +1,10 @@
 #include "media_player.hpp"
 
+#ifdef QT_DEBUG
+    #include "logger.hpp"
+#endif
+
+
 MediaPlayer* MediaPlayer::m_Instance = Q_NULLPTR;
 
 // Constructors, Initializers, Destructor
@@ -13,13 +18,12 @@ MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
     , m_AudioOutput(new QAudioOutput(this))
     , m_duration(QString("00:00:00"))
     , m_position(QString("00:00:00"))
-    , m_maxValue(qreal(0)) // TODO potentially set this to max value of qreal
+    , m_maxValue(qreal(0))
     , m_currentValue(qreal(0))
     , m_Volume(qreal(0.65))
     , m_isPlaying(false)
 {
     this->setObjectName(name);
-
 
 
     m_MediaPlayer->setAudioOutput(m_AudioOutput);
@@ -29,7 +33,6 @@ MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
     {
         qDebug() << device.description();
     }
-
 
     connect(
         this->m_MediaPlayer,
@@ -45,28 +48,19 @@ MediaPlayer::MediaPlayer(QObject *parent, const QString& name)
         &MediaPlayer::onPositionChanged
     );
 
-// Debugging
 #ifdef QT_DEBUG
-    qDebug() << "\n**************************************************\n"
-             << "* Object Name :" << this->objectName()  << "\n"
-             << "* Function    :" << __FUNCTION__        << "\n"
-             << "* Message     : Call to Constructor"
-             << "\n**************************************************\n\n";
+    QString message("Call to Constructor");
+
+    logger::log(logger::LOG_LEVEL::DEBUG, this->objectName(), Q_FUNC_INFO, message);
 #endif
 }
 
 MediaPlayer::~MediaPlayer()
 {
-
-
-
-// Debugging
 #ifdef QT_DEBUG
-    qDebug() << "\n**************************************************\n"
-             << "* Object Name :" << this->objectName()  << "\n"
-             << "* Function    :" << __FUNCTION__        << "\n"
-             << "* Message     : Call to Destructor"
-             << "\n**************************************************\n\n";
+    QString message("Call to Destructor");
+
+    logger::log(logger::LOG_LEVEL::DEBUG, this->objectName(), Q_FUNC_INFO, message);
 #endif
 }
 
@@ -117,10 +111,8 @@ void MediaPlayer::onDurationChanged(qint64 duration)
 
 void MediaPlayer::onPositionChanged(qint64 position)
 {
-    // Change value
     setCurrentValue(position);
 
-    // Change text format
     QString newPosition = formatIntoTime(position);
 
     setPosition(newPosition);
@@ -136,11 +128,6 @@ void MediaPlayer::onPositionChanged(qint64 position)
 // PUBLIC Methods
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
-
-// void MediaPlayer::stop()
-// {
-//     m_MediaPlayer->stop();
-// }
 
 void MediaPlayer::play()
 {
@@ -158,7 +145,7 @@ void MediaPlayer::pause()
 
 void MediaPlayer::rewind()
 {
-    // TODO make a setting for controlling the amount of time.
+    // TODO (SAVIZ): Create a settings option for controlling the amount of time.
     m_MediaPlayer->setPosition(
         m_MediaPlayer->position() - 1000 // ms (Miliseconds)
     );
@@ -166,7 +153,7 @@ void MediaPlayer::rewind()
 
 void MediaPlayer::forward()
 {
-    // TODO make a setting for controlling the amount of time.
+    // TODO (SAVIZ): Create a settings option for controlling the amount of time.
     m_MediaPlayer->setPosition(
         m_MediaPlayer->position() + 1000 // ms (Miliseconds)
     );
@@ -191,6 +178,11 @@ void MediaPlayer::setLoopCount(const Loop &option)
 void MediaPlayer::setPlayBackRate(qreal newRate)
 {
     m_MediaPlayer->setPlaybackRate(newRate);
+}
+
+void MediaPlayer::setPosition(qreal newPosition)
+{
+    m_MediaPlayer->setPosition(newPosition);
 }
 
 // [[------------------------------------------------------------------------]]
@@ -300,17 +292,6 @@ void MediaPlayer::setMediaFile(QUrl filePath)
 // PRIVATE Setters
 // [[------------------------------------------------------------------------]]
 // [[------------------------------------------------------------------------]]
-
-void MediaPlayer::setVideoFilePaths(const QVariantList &newList)
-{
-    // if (m_VideoFilePaths == newList)
-    // {
-    //     return;
-    // }
-
-    // m_VideoFilePaths = newList;
-    // emit videoFilePathsChanged();
-}
 
 void MediaPlayer::setDuration(const QString &newDuration)
 {

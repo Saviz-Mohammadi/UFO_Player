@@ -13,8 +13,6 @@ import CustomMediaPlayer 1.0
 Window {
     id: root
 
-    //signal closed()
-
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     modality: Qt.ApplicationModal
     color: "transparent"
@@ -23,19 +21,19 @@ Window {
         CustomMediaPlayer.pause()
         CustomMediaPlayer.videoSurface = videoOutput
         CustomMediaPlayer.play()
+
         showFullScreen()
     }
 
     Rectangle {
-        id: rectangle_Background
-
         anchors.fill: parent
 
         color: "black"
 
         Keys.onPressed: (event)=> {
             if (event.key === Qt.Key_Escape) {
-                event.accepted = true;  // Prevent other items from handling this event
+                event.accepted = true
+
                 root.close()
             }
         }
@@ -56,8 +54,8 @@ Window {
             anchors.fill: parent
 
             ColumnLayout {
-
                 anchors.fill: parent
+
                 anchors.margins: 10
 
                 Item {
@@ -83,9 +81,7 @@ Window {
 
                         visible: false
 
-                        // Buttons
                         RowLayout {
-
                             Layout.fillWidth: true
 
                             Item {
@@ -100,12 +96,11 @@ Window {
                                 checkable: true
                                 checked: false
 
-                                // TODO (Saviz): this is problematic, because when you switch to full screen mode, the state of checked becomes lost because
-                                // you are creating a new element. I think it may be better to create something like isLooping() bool in C++ instead.
+                                // TODO (Saviz): The state of checked becomes lost. It may be better to create something like "isLooping()" bool in C++ instead.
                                 onCheckedChanged: {
-                                    if(checked)
-                                    {
+                                    if(checked) {
                                         CustomMediaPlayer.setLoopCount(CustomMediaPlayer.Loop.Infinite)
+
                                         return
                                     }
 
@@ -131,9 +126,9 @@ Window {
                                 svg: CustomMediaPlayer.isPlaying ? "./../../icons/Google icons/pause.svg" : "./../../icons/Google icons/play_arrow.svg"
 
                                 onClicked: {
-                                    if(CustomMediaPlayer.isPlaying)
-                                    {
+                                    if(CustomMediaPlayer.isPlaying) {
                                         CustomMediaPlayer.pause()
+
                                         return;
                                     }
 
@@ -203,9 +198,7 @@ Window {
                             }
                         }
 
-                        // Slider
                         RowLayout {
-
                             Layout.fillWidth: true
 
                             Item {
@@ -214,7 +207,6 @@ Window {
 
                             Text {
                                 text: CustomMediaPlayer.position
-
                                 color: "white"
                             }
 
@@ -224,11 +216,14 @@ Window {
                                 from: 0
                                 to: CustomMediaPlayer.maxValue
                                 value: CustomMediaPlayer.currentValue
+
+                                onMoved: {
+                                    CustomMediaPlayer.setPosition(value)
+                                }
                             }
 
                             Text {
                                 text: CustomMediaPlayer.duration
-
                                 color: "white"
                             }
 

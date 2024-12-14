@@ -12,22 +12,22 @@ Item {
 
     function checkTabButton(targetButton) {
 
+        // TODO (SAVIZ): I like to replace these with an enum, but currently I don't know how in QML.
         switch (targetButton) {
-
-            case "MediaPlayer":
-                ufo_SidBarButton_1.checked = true
+            case "Player Page":
+                ufo_SidBarButton_Player.checked = true
                 break
-            case "VideoLibrary":
-                ufo_SidBarButton_2.checked = true
+            case "Video Library Page":
+                ufo_SidBarButton_VideoLibrary.checked = true
                 break
-            case "AudioLibrary":
-                ufo_SidBarButton_5.checked = true
+            case "Audio Library Page":
+                ufo_SidBarButton_AudioLibrary.checked = true
                 break
-            case "Settings":
-                ufo_SidBarButton_3.checked = true
+            case "Settings Page":
+                ufo_SidBarButton_Settings.checked = true
                 break
-            case "About":
-                ufo_SidBarButton_4.checked = true
+            case "About Page":
+                ufo_SidBarButton_About.checked = true
                 break
             default:
                 console.log("No valid value");
@@ -38,44 +38,38 @@ Item {
     implicitHeight: 200
 
     ButtonGroup {
-        id: buttonGroup_1
+        id: buttonGroup
     }
 
     Rectangle {
-        id: rectangle_1
-
         anchors.fill: parent
 
         color: Qt.color(AppTheme.colors["UFO_SideBar_Background"])
 
         ColumnLayout {
-            id: columnLayout_1
-
             anchors.fill: parent
 
             anchors.topMargin: 20
             anchors.bottomMargin: 20
+
             spacing: 10
 
             ScrollView {
-                id: scrollView_1
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                contentWidth: -1 // Prevents scrollview from trying to scroll horizontally.
+                // NOTE (SAVIZ): Setting "contentWidth" to -1 will disable horizontal scrolling.
+                contentWidth: -1
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 ColumnLayout {
-                    id: columnLayout_2
-
                     anchors.fill: parent
 
                     clip: true
                     spacing: 10
 
                     UFO_SideBarButton {
-                        id: ufo_SidBarButton_1
+                        id: ufo_SidBarButton_Player
 
                         Layout.fillWidth: true
                         Layout.preferredHeight: 40
@@ -83,7 +77,7 @@ Item {
                         Layout.leftMargin: 15
                         Layout.rightMargin: 15
 
-                        ButtonGroup.group: buttonGroup_1
+                        ButtonGroup.group: buttonGroup
 
                         checkable: true
                         autoExclusive: true
@@ -93,12 +87,12 @@ Item {
                         svg: "./../../icons/Google icons/smart_display.svg"
 
                         onClicked: {
-                            root.tabChanged("MediaPlayer page")
+                            root.tabChanged("Player Page")
                         }
                     }
 
                     UFO_SideBarButton {
-                        id: ufo_SidBarButton_2
+                        id: ufo_SidBarButton_VideoLibrary
 
                         Layout.fillWidth: true
                         Layout.preferredHeight: 40
@@ -106,7 +100,7 @@ Item {
                         Layout.leftMargin: 15
                         Layout.rightMargin: 15
 
-                        ButtonGroup.group: buttonGroup_1
+                        ButtonGroup.group: buttonGroup
 
                         checkable: true
                         autoExclusive: true
@@ -116,12 +110,12 @@ Item {
                         svg: "./../../icons/Google icons/movie.svg"
 
                         onClicked: {
-                            root.tabChanged("VideoLibrary page")
+                            root.tabChanged("Video Library Page")
                         }
                     }
 
                     UFO_SideBarButton {
-                        id: ufo_SidBarButton_5
+                        id: ufo_SidBarButton_AudioLibrary
 
                         Layout.fillWidth: true
                         Layout.preferredHeight: 40
@@ -129,7 +123,7 @@ Item {
                         Layout.leftMargin: 15
                         Layout.rightMargin: 15
 
-                        ButtonGroup.group: buttonGroup_1
+                        ButtonGroup.group: buttonGroup
 
                         checkable: true
                         autoExclusive: true
@@ -139,27 +133,21 @@ Item {
                         svg: "./../../icons/Google icons/music_note.svg"
 
                         onClicked: {
-                            root.tabChanged("AudioLibrary page")
+                            root.tabChanged("Audio Library Page")
                         }
                     }
 
-                    // Add more tabs here...
+                    // NOTE (SAVIZ): Add more buttons as needed...
                 }
             }
 
-            // We could place the entire section below inside the "ScrollView" in the above section.
-            // This would simplify our structure. However, I think it's beneficial to always have
-            // tabs like "Settings" and "About" visible at the bottom.
+            // NOTE (SAVIZ): The entire below section can be placed inside the "ScrollView" in the above section. However, I think it's beneficial to always have pages like "Settings" and "About" be visible at the bottom at all times.
             Item {
-                id: item_1
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
 
             UFO_SideBarSeparator {
-                id: ufo_SidBarSeparator_1
-
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
 
@@ -168,7 +156,7 @@ Item {
             }
 
             UFO_SideBarButton {
-                id: ufo_SidBarButton_3
+                id: ufo_SidBarButton_Settings
 
                 Layout.fillWidth: true
                 Layout.preferredHeight: 40
@@ -177,7 +165,7 @@ Item {
                 Layout.leftMargin: 15
                 Layout.rightMargin: 15
 
-                ButtonGroup.group: buttonGroup_1
+                ButtonGroup.group: buttonGroup
 
                 checkable: true
                 autoExclusive: true
@@ -187,12 +175,12 @@ Item {
                 svg: "./../../icons/Google icons/settings.svg"
 
                 onClicked: {
-                    root.tabChanged("Settings page")
+                    root.tabChanged("Settings Page")
                 }
             }
 
             UFO_SideBarButton {
-                id: ufo_SidBarButton_4
+                id: ufo_SidBarButton_About
 
                 Layout.fillWidth: true
                 Layout.preferredHeight: 40
@@ -200,7 +188,7 @@ Item {
                 Layout.leftMargin: 15
                 Layout.rightMargin: 15
 
-                ButtonGroup.group: buttonGroup_1
+                ButtonGroup.group: buttonGroup
 
                 checkable: true
                 autoExclusive: true
@@ -210,7 +198,7 @@ Item {
                 svg: "./../../icons/Google icons/help.svg"
 
                 onClicked: {
-                    root.tabChanged("About page")
+                    root.tabChanged("About Page")
                 }
             }
         }
