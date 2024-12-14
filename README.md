@@ -1,13 +1,13 @@
-# UFO_QML
+# UFO_Player
 
-UFO_QML is a straightforward CMake template project designed to kickstart QML development. While not flawless, it aims to help new programmers set up QML projects quickly and effectively. We plan to periodically enhance its features, so stay tuned for updates. We hope you find it valuable!
+UFO_Player is a lightweight and versatile utility for seamlessly playing a variety of media files, including both audio and video formats. While not perfect, it is designed to provide a user-friendly experience, emphasizing quick and effective performance. We plan to periodically enhance its features, so stay tuned for updates. We hope you find it valuable!
 
 
-### Prerequisites
+### Prerequisites For Project
 
 Before using this template, ensure your development environment meets the following requirements:
 ```diff
-Qt                            (Minimum version required: 6.7)
+Qt                            (Recommended version required: 6.73)
 Qt-CMake                      (Minimum version required: 3.16)
 Qt-Compiler                   (MSVC, MinGW, GCC, Clang/LLVM, ...)
 ```
@@ -31,14 +31,17 @@ sudo apt install libglx-dev libgl1-mesa-dev
 ```
 
 
-### Usage
+### Using Project
 
 Once you successfully download the project, you can start using the template with the QtCreator IDE. To open the project follow the steps below:
 ```diff
-File Menu >> Open File or Project... >> "Path/To/CMakeLists.txt"
+File Menu >> Open File or Project... >> select "Path/To/CMakeLists.txt"
 ```
 
-For a smooth experience with QtCreator IDE, ensure you configure your build directory as specified in the template.
+
+### Using binaries
+
+You can download the necessary binaries for your platform from the release section on the right-hand side of the main page. After downloading and installing, simply open the application to start using it.
 
 
 ## License
